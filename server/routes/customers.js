@@ -36,11 +36,11 @@ function calculateInactivityInfo(lastOrderDate) {
       eligibleForReminder: false,
     };
   }
-  
+
   const daysSince = Math.floor(
     (Date.now() - new Date(lastOrderDate).getTime()) / (1000 * 60 * 60 * 24)
   );
-  
+
   return {
     daysSinceLastOrder: daysSince,
     eligibleForReminder: daysSince >= 30,
@@ -54,7 +54,7 @@ function calculateInactivityInfo(lastOrderDate) {
 router.get('/', async (req, res) => {
   try {
     console.log('[API] GET /customers request received');
-    
+
     const customers = await Order.aggregate([
       { $match: { status: 'paid' } },
       {
@@ -89,10 +89,10 @@ router.get('/', async (req, res) => {
     // Deduplicate UIDs and resolve Firebase user info + UserProfile in parallel
     const uniqueUids = [...new Set(customers.map(c => c.userId).filter(Boolean))];
     console.log(`[API] Resolving ${uniqueUids.length} unique Firebase users...`);
-    
+
     const userMap = {};
     const profileMap = {};
-    
+
     await Promise.all(
       uniqueUids.map(async uid => {
         try {
@@ -150,10 +150,10 @@ router.get('/:userId', async (req, res) => {
     const firstOrder = orders[orders.length - 1].createdAt;
     const lastOrder = orders[0].createdAt;
     const segment = getSegment(orderCount, totalSpend);
-    
+
     // Get inactivity info
     const inactivityInfo = calculateInactivityInfo(lastOrder);
-    
+
     // Get profile info with error handling
     let profile = null;
     try {
@@ -198,9 +198,10 @@ router.post('/:userId/send-reminder', verifyFirebaseToken, async (req, res) => {
   try {
     const { userId } = req.params;
     const adminUid = process.env.VITE_ADMIN_UID || 'n5LtrXIGVSVjNktRn1PgDXZbHgq1';
+    const SUPER_ADMIN_UID = process.env.SUPER_ADMIN_UID || process.env.VITE_SUPER_ADMIN_UID || '';
 
-    // Check if requester is admin
-    if (req.user.uid !== adminUid) {
+    // Check if requester is admin (allow super admin as well)
+    if (req.user.uid !== adminUid && req.user.uid !== SUPER_ADMIN_UID) {
       return res.status(403).json({ success: false, error: 'Forbidden — admin access required' });
     }
 
