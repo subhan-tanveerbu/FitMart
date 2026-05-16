@@ -11,7 +11,11 @@ const allowedOrigins = allowedOrigin
   .split(",")
   .map((s) => s.trim())
   .filter(Boolean);
-const isDev = process.env.NODE_ENV === "development";
+const isDev = process.env.NODE_ENV !== "production";
+
+if (isDev) {
+  allowedOrigins.push("http://localhost:5173", "http://127.0.0.1:5173");
+}
 
 // Display missing variables at server startup. Only require truly critical vars
 // to avoid failing entirely in environments where optional services (Razorpay)
@@ -74,22 +78,6 @@ const paymentLimiter = rateLimit({
 app.use(
   cors({
     origin: function (origin, callback) {
-      // Allow requests with no origin (like mobile apps or curl requests)
-      if (!origin) {
-        console.log("[CORS] Allowing request with no origin");
-        return callback(null, true);
-      }
-
-      // In development, be more permissive
-      if (
-        (isDev && origin.includes("localhost")) ||
-        origin.includes("127.0.0.1")
-      ) {
-        console.log(`[CORS] Allowing local development origin: ${origin}`);
-        return callback(null, true);
-      }
-
-      // Check against allowed origins
       if (allowedOrigins.includes(origin)) {
         console.log(`[CORS] Allowing whitelisted origin: ${origin}`);
         return callback(null, true);
