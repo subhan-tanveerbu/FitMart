@@ -1,6 +1,6 @@
-# Issue Labeler Configuration - Applies multiple relevant labels based on issue content
+# Issue Labeler Configuration - Based on title and body keywords
 
-# Bug reports (can also add other labels like 'help wanted' if needed)
+# Bug reports
 bug:
   - '(bug|fix|error|issue|problem|crash|broken|fails|not working|unexpected|exception|stack trace|debug)'
 
@@ -18,9 +18,9 @@ security:
 
 # UI/UX improvements
 UI:
-  - '(ui|ux|interface|design|responsive|layout|styling|animation|visual|appearance|mobile view|tablet|accessibility|a11y|cursor|hover|click|button|modal|dropdown|navigation|sidebar|header|footer|spacing|padding|margin|color|theme|dark mode|font|typography|icon)'
+  - '(ui|ux|interface|design|responsive|layout|styling|animation|visual|appearance|mobile|tablet|accessibility|a11y|modal|dropdown|navigation|sidebar|header|footer|spacing|padding|margin|color|theme|dark mode|font|typography|icon)'
 
-# Questions (can also add 'help wanted' automatically)
+# Questions
 question:
   - '(question|how to|help|what is|why does|^how\??|^what\??|^can someone|^is it possible|^does this|clarify|doubt|confused|uncertain)'
 
@@ -30,60 +30,24 @@ refactor:
 
 # Good first issue (for beginners)
 good first issue:
-  - '(good first issue|beginner|new contributor|easy|simple|starter|first time|novice|onboarding|help wanted for beginners|low hanging fruit)'
+  - '(good first issue|beginner|new contributor|easy|simple|starter|first time|novice|onboarding|low hanging fruit)'
 
 # Help wanted (requires extra attention)
 help wanted:
-  - '(help wanted|contribution needed|looking for contributor|need assistance|someone please|can anyone|collaboration wanted|seeking help|volunteer)'
+  - '(help wanted|contribution needed|looking for contributor|need assistance|someone please|can anyone|collaboration wanted|seeking help|volunteer|complex|difficult|unclear)'
 
-# Invalid issues (usually requires manual verification)
+# Invalid issues
 invalid:
-  - '(invalid|not relevant|off topic|spam|duplicate of|wrong repo|doesn''t belong|inappropriate)'
+  - '(invalid|not relevant|off topic|spam|doesn''t belong|inappropriate|not a bug|working as intended)'
 
 # Duplicate issues
 duplicate:
   - '(duplicate|already reported|same as|existing issue|dupe|redundant|already exists|#\d+)'
 
-# Won't fix (community identified)
+# Won't fix
 wontfix:
-  - '(wontfix|won''t fix|not planned|rejected|out of scope|not a priority|wont do|not fixing)'
+  - '(wontfix|won''t fix|not planned|rejected|out of scope|not a priority|wont do|not fixing|intended behavior)'
 
 # Blocked issues
 blocked:
-  - '(blocked|waiting on|depends on|blocked by|stuck because|awaiting|cannot proceed because|prerequisite|dependency|blocking issue|#\d+ blocks)'
-
-# Workout/Exercise features
-workout:
-  - '(workout|exercise|fitness|gym|training|calendar|tracker|bmi|tdee|calorie|nutrition|diet|workout plan|exercise page|notes page|tracker page|fitness center|nearby gym)'
-
-# Chatbot/Gemini AI
-chatbot:
-  - '(chatbot|gemini|ai|assistant|chat|conversation|bot|intelligent|auto reply|gemini api)'
-
-# Payment/Razorpay
-payment:
-  - '(payment|razorpay|checkout|transaction|invoice|order|cart|checkout page|payment gateway|purchase|buy)'
-
-# Authentication
-authentication:
-  - '(auth|login|signup|firebase|register|password|email verification|google signin|oauth|session|token|jwt)'
-
-# Database/MongoDB
-database:
-  - '(database|mongodb|mongoose|schema|model|query|index|collection|document|seed|migration|data model)'
-
-# API/Backend endpoints
-api:
-  - '(api|endpoint|route|rest|http|request|response|json|middleware|controller|service)'
-
-# Performance
-performance:
-  - '(performance|speed|slow|fast|cache|redis|lazy load|optimization|bottleneck|response time|load time)'
-
-# Testing
-testing:
-  - '(test|unit test|integration test|e2e|jest|supertest|mock|coverage|ci|cd|workflow|github action)'
-
-# Deployment/Infrastructure
-deployment:
-  - '(deploy|production|staging|vercel|railway|render|hosting|docker|container|ci/cd|environment|dev|prod)'
+  - '(blocked|waiting on|depends on|blocked by|stuck because|awaiting|cannot proceed because|prerequisite|dependency|blocking issue|waiting for)'
